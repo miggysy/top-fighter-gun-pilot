@@ -101,7 +101,6 @@ public class Health : MonoBehaviour
     void PlayHitEffect()
     {
         ParticleSystem instance = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(instance, instance.main.startLifetime.constantMax);
     }
 
     //Health Pickup Method

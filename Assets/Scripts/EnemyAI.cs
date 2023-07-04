@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] string enemyID;
+    public string EnemyID { get => enemyID; }
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
     List<Transform> waypoints;
     int waypointIndex = 0;
     [SerializeField, Range(0f,100f)] float healthDropRate = 50f;
-    [SerializeField] GameObject healthBox;
+    [SerializeField] string healthBoxID;
+    bool initialized;
 
     void Awake()
     {
@@ -18,6 +21,15 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        waveConfig = enemySpawner.GetCurrentWave();
+        waypoints = waveConfig.GetWaypoints();
+        initialized = true;
+    }
+
+    void OnEnable()
+    {
+        if(!initialized) return;
+        waypointIndex = 0;
         waveConfig = enemySpawner.GetCurrentWave();
         waypoints = waveConfig.GetWaypoints();
     }
@@ -41,18 +53,18 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
     public void SpawnHealth()
     {
-        if(healthBox != null)
+        if (Random.Range(0f, 100f) < healthDropRate)
         {
-            if (Random.Range(0f, 100f) < healthDropRate)
-            {
-                Instantiate(healthBox, transform.position, Quaternion.identity);
-            }
+            GameObject instance = ObjectPoolManager.Instance.GetPooledObject(healthBoxID);
+            instance.transform.position = transform.position;
+            instance.transform.rotation = Quaternion.identity;
+            instance.SetActive(true);
         }
     }
 }

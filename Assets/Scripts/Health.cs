@@ -131,6 +131,6 @@ public class Health : MonoBehaviour
             scoreKeeper.SetLife(false);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

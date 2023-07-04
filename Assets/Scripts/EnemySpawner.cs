@@ -25,7 +25,13 @@ public class EnemySpawner : MonoBehaviour
                 currentWave = wave;
                 for (int i = 0; i < currentWave.GetEnemyCount(); i++)
                 {
-                    Instantiate(currentWave.GetEnemy(i), currentWave.GetStartingWaypoint().position, Quaternion.Euler(0,0,180), transform);
+                    GameObject enemy = ObjectPoolManager.Instance.GetPooledObject(currentWave.GetEnemy(i).GetComponent<EnemyAI>().EnemyID);
+                    if(enemy != null)
+                    {
+                        enemy.transform.position = currentWave.GetStartingWaypoint().position;
+                        enemy.transform.rotation = Quaternion.Euler(0,0,180);
+                        enemy.SetActive(true);
+                    }
                     yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
                 }
                 yield return new WaitForSeconds(timeBetweenWaves);

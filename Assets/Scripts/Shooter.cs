@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    [SerializeField] GameObject bullet;
+    [SerializeField] string bulletID;
     AudioPlayer audioPlayer;
     
     [Header("Bullet Settings")]
@@ -22,7 +21,7 @@ public class Shooter : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(Fire());
     }
@@ -31,20 +30,30 @@ public class Shooter : MonoBehaviour
     {
         while(true)
         {
-            GameObject instance = Instantiate(bullet, transform.position, transform.rotation);
+            GameObject instance = ObjectPoolManager.Instance.GetPooledObject(bulletID);
 
-            if (audioPlayer != null)
-                audioPlayer.PlayShootingClip();
+            if(instance != null) 
+            {
+                instance.transform.position = transform.position;
+                instance.transform.rotation = transform.rotation;
+                instance.layer = gameObject.layer;
+                instance.GetComponent<Bullet>().Lifetime = bulletLifetime;
+                instance.SetActive(true);
 
-            instance.layer = gameObject.layer;
-            Rigidbody2D rb = instance.GetComponent<Rigidbody2D>();
+                Rigidbody2D rb = instance.GetComponent<Rigidbody2D>();
 
-            if (rb != null)
+                if (audioPlayer != null)
+                    audioPlayer.PlayShootingClip();
+
+                if (rb != null)
                 rb.velocity = transform.up * bulletSpeed;
-
-            Destroy(instance, bulletLifetime);
+            }
             yield return new WaitForSeconds(Mathf.Clamp((Random.Range(fireRate - fireRateVariance, fireRate + fireRateVariance)), fireRateMinimum, float.MaxValue));
         }
-       
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

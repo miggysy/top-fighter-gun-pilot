@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8635278706793535704}
   m_RootOrder: 0
@@ -42,6 +43,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -93,6 +95,7 @@ GameObject:
   - component: {fileID: 8635278706793535704}
   - component: {fileID: 8635278706793535705}
   - component: {fileID: 8635278706793535707}
+  - component: {fileID: 5235296417631022721}
   - component: {fileID: 8635278706793535706}
   - component: {fileID: 6357746295881183494}
   m_Layer: 0
@@ -112,6 +115,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8635278706172471202}
   m_Father: {fileID: 0}
@@ -145,6 +149,18 @@ MonoBehaviour:
   maxHealth: 100
   pointValue: 0
   hitEffect: {fileID: 0}
+--- !u!114 &5235296417631022721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8635278706793535687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca90da6326d5da4db73e1295bb34ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!70 &8635278706793535706
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

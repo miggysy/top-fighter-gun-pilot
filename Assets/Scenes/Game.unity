@@ -1316,6 +1316,7 @@ MonoBehaviour:
   waveConfigs:
   - {fileID: 11400000, guid: 5dc8cf97e2806b64484fb28e28e18b57, type: 2}
   - {fileID: 11400000, guid: d4b6a02bfb477d844b1a4502404542aa, type: 2}
+  - {fileID: 11400000, guid: 34cc35ff785ca564aadb055ef5b65097, type: 2}
   timeBetweenWaves: 1
 --- !u!4 &1490532014
 Transform:
